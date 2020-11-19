@@ -1,4 +1,4 @@
-package net.gabrielbrown.saucechallenge;
+package com.example.saucechallenge;
 
 import android.app.Service;
 import android.content.Intent;

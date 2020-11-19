@@ -1,4 +1,4 @@
-package net.gabrielbrown.saucechallenge;
+package com.example.saucechallenge;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("net.gabrielbrown.saucechallenge", appContext.getPackageName());
+        assertEquals("com.example.saucechallenge", appContext.getPackageName());
     }
 }
