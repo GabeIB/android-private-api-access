@@ -10,8 +10,10 @@ import java.lang.reflect.*;
 
 import androidx.annotation.Nullable;
 
+//MyService Lists running services, then uses the batterystats service to log
+// if the phone is charging, then exits.
 public class MyService extends Service {
-    //gets Class object given the class name
+    //getClass gets Class object given the class name using Java Reflection.
     private Class getClass(String className){
         Class localClass = null;
         try {
@@ -22,6 +24,8 @@ public class MyService extends Service {
         return localClass;
     }
 
+    //getMethodFromClass retrieves a method that takes no arguments matching
+    // methodName from containerClass.
     private Method getMethodFromClass(String methodName, Class containerClass){
         Method method = null;
         try {
@@ -32,7 +36,7 @@ public class MyService extends Service {
         return method;
     }
 
-    //lists the services running on the device at a given time
+    //listServices lists the services running on the device to logcat.
     private void listServices(){
         Class localClass = getClass("android.os.ServiceManager");
         Method listServices = getMethodFromClass("listServices", localClass);
@@ -54,7 +58,8 @@ public class MyService extends Service {
         //Log.i("SauceChallenge", "List Service Called...");
     }
 
-    //returns the interface associated with the batterystats service
+    //getBatteryStatsInterface returns the interface corresponding to the battery stats service.
+    //The returned object is of private type IBatteryStats.
     private Object getBatteryStatsInterface() throws NoSuchMethodException {
         //Log.i("SauceChallenge", "Entering invokeCharging...");
         Class serviceManager = getClass("android.os.ServiceManager");
@@ -84,8 +89,10 @@ public class MyService extends Service {
         return bstatsInterface;
     }
 
-    //takes batterystats interface and logs output of isCharging function
-    private void isBatteryConnected(Object batteryStats) throws InvocationTargetException, IllegalAccessException {
+    //isBatteryConnected takes the interface corresponding to the batterystats service
+    // calls the isCharging function, and logs the output.
+    private void isBatteryConnected(Object batteryStats) throws InvocationTargetException,
+            IllegalAccessException {
         Class c = batteryStats.getClass();
         Method isCharging = getMethodFromClass("isCharging", c);
         if (isCharging != null ){
@@ -94,6 +101,9 @@ public class MyService extends Service {
         }
     }
 
+    //When the service is started, the running services are logged, then the batterystats interface
+    //is retrieved, then the isCharging function output is logged,
+    // and then the service stops itself.
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("SauceChallenge", "Starting service...");
