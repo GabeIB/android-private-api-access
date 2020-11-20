@@ -7,7 +7,7 @@ This application requires an Android emulator and adb. All testing occured on a 
 ## Usage
 * Boot the emulator
 * `adb install saucechallenge.apk`
-* `adb shell am startservice net.gabrielbrown.saucechallenge/.MyService`
+* `adb shell am startservice com.example.saucechallenge/.MyService`
 
 ## Time
 Completing this challenge took me 5 hours. I was unfamiliar with Android mobile development before this challenge, so I needed to take time to read documentation on Android services. Part 1 took about 2 hours, and parts 2-4 took the remaining 3 hours.
